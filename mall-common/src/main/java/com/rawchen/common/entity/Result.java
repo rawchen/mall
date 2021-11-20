@@ -11,6 +11,9 @@ public class Result {
 	private String msg;
 	private Object data;
 
+	public Result() {
+	}
+
 	private Result(Integer code, String msg) {
 		this.code = code;
 		this.msg = msg;
@@ -21,9 +24,6 @@ public class Result {
 		this.code = code;
 		this.msg = msg;
 		this.data = data;
-	}
-
-	public Result() {
 	}
 
 	public static Result ok(String msg, Object data) {
