@@ -1,13 +1,13 @@
-package com.rawchen.mall;
+package com.rawchen.mall.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MallCouponApplication {
+public class MallOrderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MallCouponApplication.class, args);
+		SpringApplication.run(MallOrderApplication.class, args);
 	}
 
 }
