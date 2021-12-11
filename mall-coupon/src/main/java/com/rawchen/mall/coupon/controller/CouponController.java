@@ -7,10 +7,13 @@ import com.rawchen.common.entity.Result;
 import com.rawchen.common.entity.Page;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,6 +27,20 @@ public class CouponController extends BaseController {
 
 	@Autowired
 	private CouponService couponService;
+
+	@Value("${coupon.user.name}")
+	private String name;
+
+	@Value("${coupon.user.age}")
+	private Integer age;
+
+	@RequestMapping("/test")
+	public Result test() {
+		return Result.ok(new HashMap() {{
+			put("name", name);
+			put("age", age);
+		}});
+	}
 
 	/**
 	 * 优惠券信息列表
