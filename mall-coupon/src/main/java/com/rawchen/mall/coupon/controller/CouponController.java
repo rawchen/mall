@@ -8,6 +8,7 @@ import com.rawchen.common.entity.Page;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * [优惠券信息]控制器
  * Created by RawChen on 2021-11-22.
  **/
+@RefreshScope
 @RestController
 @RequestMapping(value = "/api/v1/coupon")
 @Api(tags = "[PC端]优惠券信息接口",  value = "CouponController")
