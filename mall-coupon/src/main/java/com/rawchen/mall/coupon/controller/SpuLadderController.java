@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/spuLadder")
+@RequestMapping(value = "/spuLadder")
 @Api(tags = "[PC端]商品阶梯价格接口",  value = "SpuLadderController")
 public class SpuLadderController extends BaseController {
 

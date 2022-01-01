@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/seckillSession")
+@RequestMapping(value = "/seckillSession")
 @Api(tags = "[PC端]秒杀活动场次接口",  value = "SeckillSessionController")
 public class SeckillSessionController extends BaseController {
 

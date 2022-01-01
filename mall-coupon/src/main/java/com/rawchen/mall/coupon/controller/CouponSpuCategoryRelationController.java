@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/couponSpuCategoryRelation")
+@RequestMapping(value = "/couponSpuCategoryRelation")
 @Api(tags = "[PC端]优惠券分类关联接口",  value = "CouponSpuCategoryRelationController")
 public class CouponSpuCategoryRelationController extends BaseController {
 

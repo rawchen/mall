@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/couponHistory")
+@RequestMapping(value = "/couponHistory")
 @Api(tags = "[PC端]优惠券领取历史记录接口",  value = "CouponHistoryController")
 public class CouponHistoryController extends BaseController {
 

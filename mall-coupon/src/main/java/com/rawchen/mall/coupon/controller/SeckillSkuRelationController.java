@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/seckillSkuRelation")
+@RequestMapping(value = "/seckillSkuRelation")
 @Api(tags = "[PC端]秒杀活动商品关联接口",  value = "SeckillSkuRelationController")
 public class SeckillSkuRelationController extends BaseController {
 

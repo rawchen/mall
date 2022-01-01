@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/skuBounds")
+@RequestMapping(value = "/skuBounds")
 @Api(tags = "[PC端]商品sku积分设置接口",  value = "SkuBoundsController")
 public class SkuBoundsController extends BaseController {
 

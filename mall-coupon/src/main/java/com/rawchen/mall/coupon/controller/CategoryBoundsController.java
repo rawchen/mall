@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/categoryBounds")
+@RequestMapping(value = "/categoryBounds")
 @Api(tags = "[PC端]商品分类积分设置接口",  value = "CategoryBoundsController")
 public class CategoryBoundsController extends BaseController {
 

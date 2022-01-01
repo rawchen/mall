@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/skuFullReduction")
+@RequestMapping(value = "/skuFullReduction")
 @Api(tags = "[PC端]商品满减信息接口",  value = "SkuFullReductionController")
 public class SkuFullReductionController extends BaseController {
 

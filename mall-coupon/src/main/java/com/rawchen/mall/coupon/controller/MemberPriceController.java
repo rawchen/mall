@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/memberPrice")
+@RequestMapping(value = "/memberPrice")
 @Api(tags = "[PC端]商品会员价格接口",  value = "MemberPriceController")
 public class MemberPriceController extends BaseController {
 

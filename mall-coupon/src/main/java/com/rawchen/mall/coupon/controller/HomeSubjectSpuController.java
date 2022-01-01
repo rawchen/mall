@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/homeSubjectSpu")
+@RequestMapping(value = "/homeSubjectSpu")
 @Api(tags = "[PC端]专题商品接口",  value = "HomeSubjectSpuController")
 public class HomeSubjectSpuController extends BaseController {
 

@@ -1,7 +1,12 @@
 spring:
-  application:
-    name: mall-coupon
+  profiles:
+    active: dev #开发环境
   cloud:
     nacos:
+      discovery:
+        server-addr: localhost:8848
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEV_GROUP
+        namespace: 0910856c-b3a0-42f9-baee-0e992bd22a96

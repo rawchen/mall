@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Swagger接口配置类
  *
  * @author RawChen
- * @since 2021-10-13 15:04
+ * @date 2021-10-13 15:04
  */
 @Configuration
 @EnableSwagger2
@@ -44,7 +44,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("mall-coupon API Doc")
-				.description("This is a restful api document of mall-coupon.")
+				.description("This is a restful api document.")
 				.version("1.0")
 				.build();
 	}

@@ -23,7 +23,7 @@ import java.util.List;
  **/
 @RefreshScope
 @RestController
-@RequestMapping(value = "/api/v1/coupon")
+@RequestMapping(value = "/coupon")
 @Api(tags = "[PC端]优惠券信息接口",  value = "CouponController")
 public class CouponController extends BaseController {
 
@@ -36,7 +36,7 @@ public class CouponController extends BaseController {
 	@Value("${coupon.user.age}")
 	private Integer age;
 
-	@RequestMapping("/test")
+	@GetMapping("/test")
 	public Result test() {
 		return Result.ok(new HashMap() {{
 			put("name", name);

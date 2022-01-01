@@ -18,7 +18,7 @@ import java.util.List;
  * Created by RawChen on 2021-11-22.
  **/
 @RestController
-@RequestMapping(value = "/api/v1/spuBounds")
+@RequestMapping(value = "/spuBounds")
 @Api(tags = "[PC端]商品spu积分设置接口",  value = "SpuBoundsController")
 public class SpuBoundsController extends BaseController {
 
