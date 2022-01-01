@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sms_spu_bounds 商品spu积分设置 -->
+<mapper namespace="com.rawchen.mall.coupon.mapper.SpuBoundsMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.coupon.entity.SpuBounds">
+		<id property="id" column="id" />
+		<result property="spuId" column="spu_id"/>
+		<result property="growBounds" column="grow_bounds"/>
+		<result property="buyBounds" column="buy_bounds"/>
+		<result property="work" column="work"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`spu_id`,
+		`grow_bounds`,
+		`buy_bounds`,
+		`work`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM sms_spu_bounds
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.coupon.entity.SpuBounds">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM sms_spu_bounds
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="spuId!=null ">
+				AND spu_id like concat('%',concat(#{spuId},'%'))
+			</if>
+			<if test="growBounds!=null ">
+				AND grow_bounds like concat('%',concat(#{growBounds},'%'))
+			</if>
+			<if test="buyBounds!=null ">
+				AND buy_bounds like concat('%',concat(#{buyBounds},'%'))
+			</if>
+			<if test="work!=null ">
+				AND work like concat('%',concat(#{work},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.coupon.entity.SpuBounds">
+		INSERT INTO sms_spu_bounds
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{spuId}, #{growBounds}, #{buyBounds}, #{work}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.coupon.entity.SpuBounds">
+		UPDATE sms_spu_bounds
+		SET 
+			<if test="spuId!=null ">
+				spu_id = #{spuId}
+,			</if>
+			<if test="growBounds!=null ">
+				grow_bounds = #{growBounds}
+,			</if>
+			<if test="buyBounds!=null ">
+				buy_bounds = #{buyBounds}
+,			</if>
+			<if test="work!=null ">
+				work = #{work}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sms_spu_bounds where id = #{id}
+	</delete>
+
+</mapper>

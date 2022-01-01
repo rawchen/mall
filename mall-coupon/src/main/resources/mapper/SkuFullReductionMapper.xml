@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sms_sku_full_reduction 商品满减信息 -->
+<mapper namespace="com.rawchen.mall.coupon.mapper.SkuFullReductionMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.coupon.entity.SkuFullReduction">
+		<id property="id" column="id" />
+		<result property="skuId" column="sku_id"/>
+		<result property="fullPrice" column="full_price"/>
+		<result property="reducePrice" column="reduce_price"/>
+		<result property="addOther" column="add_other"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`sku_id`,
+		`full_price`,
+		`reduce_price`,
+		`add_other`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM sms_sku_full_reduction
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.coupon.entity.SkuFullReduction">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM sms_sku_full_reduction
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="skuId!=null ">
+				AND sku_id like concat('%',concat(#{skuId},'%'))
+			</if>
+			<if test="fullPrice!=null ">
+				AND full_price like concat('%',concat(#{fullPrice},'%'))
+			</if>
+			<if test="reducePrice!=null ">
+				AND reduce_price like concat('%',concat(#{reducePrice},'%'))
+			</if>
+			<if test="addOther!=null ">
+				AND add_other like concat('%',concat(#{addOther},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.coupon.entity.SkuFullReduction">
+		INSERT INTO sms_sku_full_reduction
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{skuId}, #{fullPrice}, #{reducePrice}, #{addOther}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.coupon.entity.SkuFullReduction">
+		UPDATE sms_sku_full_reduction
+		SET 
+			<if test="skuId!=null ">
+				sku_id = #{skuId}
+,			</if>
+			<if test="fullPrice!=null ">
+				full_price = #{fullPrice}
+,			</if>
+			<if test="reducePrice!=null ">
+				reduce_price = #{reducePrice}
+,			</if>
+			<if test="addOther!=null ">
+				add_other = #{addOther}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sms_sku_full_reduction where id = #{id}
+	</delete>
+
+</mapper>

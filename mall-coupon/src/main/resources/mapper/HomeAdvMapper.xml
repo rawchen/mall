@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sms_home_adv 首页轮播广告 -->
+<mapper namespace="com.rawchen.mall.coupon.mapper.HomeAdvMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.coupon.entity.HomeAdv">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="pic" column="pic"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="status" column="status"/>
+		<result property="clickCount" column="click_count"/>
+		<result property="url" column="url"/>
+		<result property="note" column="note"/>
+		<result property="sort" column="sort"/>
+		<result property="publisherId" column="publisher_id"/>
+		<result property="authId" column="auth_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`name`,
+		`pic`,
+		`start_time`,
+		`end_time`,
+		`status`,
+		`click_count`,
+		`url`,
+		`note`,
+		`sort`,
+		`publisher_id`,
+		`auth_id`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM sms_home_adv
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.coupon.entity.HomeAdv">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM sms_home_adv
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="name!=null and name!=''">
+				AND name like concat('%',concat(#{name},'%'))
+			</if>
+			<if test="pic!=null and pic!=''">
+				AND pic like concat('%',concat(#{pic},'%'))
+			</if>
+			<if test="startTime!=null ">
+				AND start_time like concat('%',concat(#{startTime},'%'))
+			</if>
+			<if test="endTime!=null ">
+				AND end_time like concat('%',concat(#{endTime},'%'))
+			</if>
+			<if test="status!=null ">
+				AND status like concat('%',concat(#{status},'%'))
+			</if>
+			<if test="clickCount!=null ">
+				AND click_count like concat('%',concat(#{clickCount},'%'))
+			</if>
+			<if test="url!=null and url!=''">
+				AND url like concat('%',concat(#{url},'%'))
+			</if>
+			<if test="note!=null and note!=''">
+				AND note like concat('%',concat(#{note},'%'))
+			</if>
+			<if test="sort!=null ">
+				AND sort like concat('%',concat(#{sort},'%'))
+			</if>
+			<if test="publisherId!=null ">
+				AND publisher_id like concat('%',concat(#{publisherId},'%'))
+			</if>
+			<if test="authId!=null ">
+				AND auth_id like concat('%',concat(#{authId},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.coupon.entity.HomeAdv">
+		INSERT INTO sms_home_adv
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{name}, #{pic}, #{startTime}, #{endTime}, #{status}, #{clickCount}, #{url}, #{note}, #{sort}, #{publisherId}, #{authId}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.coupon.entity.HomeAdv">
+		UPDATE sms_home_adv
+		SET 
+			<if test="name!=null and name!=''">
+				name = #{name}
+,			</if>
+			<if test="pic!=null and pic!=''">
+				pic = #{pic}
+,			</if>
+			<if test="startTime!=null ">
+				start_time = #{startTime}
+,			</if>
+			<if test="endTime!=null ">
+				end_time = #{endTime}
+,			</if>
+			<if test="status!=null ">
+				status = #{status}
+,			</if>
+			<if test="clickCount!=null ">
+				click_count = #{clickCount}
+,			</if>
+			<if test="url!=null and url!=''">
+				url = #{url}
+,			</if>
+			<if test="note!=null and note!=''">
+				note = #{note}
+,			</if>
+			<if test="sort!=null ">
+				sort = #{sort}
+,			</if>
+			<if test="publisherId!=null ">
+				publisher_id = #{publisherId}
+,			</if>
+			<if test="authId!=null ">
+				auth_id = #{authId}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sms_home_adv where id = #{id}
+	</delete>
+
+</mapper>

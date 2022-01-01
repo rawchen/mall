@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sms_seckill_promotion 秒杀活动 -->
+<mapper namespace="com.rawchen.mall.coupon.mapper.SeckillPromotionMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.coupon.entity.SeckillPromotion">
+		<id property="id" column="id" />
+		<result property="title" column="title"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="status" column="status"/>
+		<result property="userId" column="user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`title`,
+		`start_time`,
+		`end_time`,
+		`status`,
+		`user_id`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM sms_seckill_promotion
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.coupon.entity.SeckillPromotion">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM sms_seckill_promotion
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="title!=null and title!=''">
+				AND title like concat('%',concat(#{title},'%'))
+			</if>
+			<if test="startTime!=null ">
+				AND start_time like concat('%',concat(#{startTime},'%'))
+			</if>
+			<if test="endTime!=null ">
+				AND end_time like concat('%',concat(#{endTime},'%'))
+			</if>
+			<if test="status!=null ">
+				AND status like concat('%',concat(#{status},'%'))
+			</if>
+			<if test="userId!=null ">
+				AND user_id like concat('%',concat(#{userId},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.coupon.entity.SeckillPromotion">
+		INSERT INTO sms_seckill_promotion
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{title}, #{startTime}, #{endTime}, #{status}, #{userId}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.coupon.entity.SeckillPromotion">
+		UPDATE sms_seckill_promotion
+		SET 
+			<if test="title!=null and title!=''">
+				title = #{title}
+,			</if>
+			<if test="startTime!=null ">
+				start_time = #{startTime}
+,			</if>
+			<if test="endTime!=null ">
+				end_time = #{endTime}
+,			</if>
+			<if test="status!=null ">
+				status = #{status}
+,			</if>
+			<if test="userId!=null ">
+				user_id = #{userId}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sms_seckill_promotion where id = #{id}
+	</delete>
+
+</mapper>

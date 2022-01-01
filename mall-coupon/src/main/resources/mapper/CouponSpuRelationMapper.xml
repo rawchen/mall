@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- sms_coupon_spu_relation 优惠券与产品关联 -->
+<mapper namespace="com.rawchen.mall.coupon.mapper.CouponSpuRelationMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.coupon.entity.CouponSpuRelation">
+		<id property="id" column="id" />
+		<result property="couponId" column="coupon_id"/>
+		<result property="spuId" column="spu_id"/>
+		<result property="spuName" column="spu_name"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`coupon_id`,
+		`spu_id`,
+		`spu_name`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM sms_coupon_spu_relation
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.coupon.entity.CouponSpuRelation">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM sms_coupon_spu_relation
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="couponId!=null ">
+				AND coupon_id like concat('%',concat(#{couponId},'%'))
+			</if>
+			<if test="spuId!=null ">
+				AND spu_id like concat('%',concat(#{spuId},'%'))
+			</if>
+			<if test="spuName!=null and spuName!=''">
+				AND spu_name like concat('%',concat(#{spuName},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.coupon.entity.CouponSpuRelation">
+		INSERT INTO sms_coupon_spu_relation
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{couponId}, #{spuId}, #{spuName}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.coupon.entity.CouponSpuRelation">
+		UPDATE sms_coupon_spu_relation
+		SET 
+			<if test="couponId!=null ">
+				coupon_id = #{couponId}
+,			</if>
+			<if test="spuId!=null ">
+				spu_id = #{spuId}
+,			</if>
+			<if test="spuName!=null and spuName!=''">
+				spu_name = #{spuName}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from sms_coupon_spu_relation where id = #{id}
+	</delete>
+
+</mapper>
