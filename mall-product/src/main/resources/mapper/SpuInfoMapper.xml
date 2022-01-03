@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_spu_info spu信息 -->
+<mapper namespace="com.rawchen.mall.product.mapper.SpuInfoMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.SpuInfo">
+		<id property="id" column="id" />
+		<result property="spuName" column="spu_name"/>
+		<result property="spuDescription" column="spu_description"/>
+		<result property="catalogId" column="catalog_id"/>
+		<result property="brandId" column="brand_id"/>
+		<result property="publishStatus" column="publish_status"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`spu_name`,
+		`spu_description`,
+		`catalog_id`,
+		`brand_id`,
+		`publish_status`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_info
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.SpuInfo">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_info
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="spuName!=null and spuName!=''">
+				AND spu_name like concat('%',concat(#{spuName},'%'))
+			</if>
+			<if test="spuDescription!=null and spuDescription!=''">
+				AND spu_description like concat('%',concat(#{spuDescription},'%'))
+			</if>
+			<if test="catalogId!=null ">
+				AND catalog_id like concat('%',concat(#{catalogId},'%'))
+			</if>
+			<if test="brandId!=null ">
+				AND brand_id like concat('%',concat(#{brandId},'%'))
+			</if>
+			<if test="publishStatus!=null ">
+				AND publish_status like concat('%',concat(#{publishStatus},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.SpuInfo">
+		INSERT INTO pms_spu_info
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{spuName}, #{spuDescription}, #{catalogId}, #{brandId}, #{publishStatus}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.SpuInfo">
+		UPDATE pms_spu_info
+		SET 
+			<if test="spuName!=null and spuName!=''">
+				spu_name = #{spuName}
+,			</if>
+			<if test="spuDescription!=null and spuDescription!=''">
+				spu_description = #{spuDescription}
+,			</if>
+			<if test="catalogId!=null ">
+				catalog_id = #{catalogId}
+,			</if>
+			<if test="brandId!=null ">
+				brand_id = #{brandId}
+,			</if>
+			<if test="publishStatus!=null ">
+				publish_status = #{publishStatus}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_spu_info where id = #{id}
+	</delete>
+
+</mapper>

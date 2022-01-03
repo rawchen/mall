@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_sku_sale_attr_value sku销售属性&值 -->
+<mapper namespace="com.rawchen.mall.product.mapper.SkuSaleAttrValueMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.SkuSaleAttrValue">
+		<id property="id" column="id" />
+		<result property="skuId" column="sku_id"/>
+		<result property="attrId" column="attr_id"/>
+		<result property="attrName" column="attr_name"/>
+		<result property="attrValue" column="attr_value"/>
+		<result property="attrSort" column="attr_sort"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`sku_id`,
+		`attr_id`,
+		`attr_name`,
+		`attr_value`,
+		`attr_sort`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_sku_sale_attr_value
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.SkuSaleAttrValue">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_sku_sale_attr_value
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="skuId!=null ">
+				AND sku_id like concat('%',concat(#{skuId},'%'))
+			</if>
+			<if test="attrId!=null ">
+				AND attr_id like concat('%',concat(#{attrId},'%'))
+			</if>
+			<if test="attrName!=null and attrName!=''">
+				AND attr_name like concat('%',concat(#{attrName},'%'))
+			</if>
+			<if test="attrValue!=null and attrValue!=''">
+				AND attr_value like concat('%',concat(#{attrValue},'%'))
+			</if>
+			<if test="attrSort!=null ">
+				AND attr_sort like concat('%',concat(#{attrSort},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.SkuSaleAttrValue">
+		INSERT INTO pms_sku_sale_attr_value
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{skuId}, #{attrId}, #{attrName}, #{attrValue}, #{attrSort}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.SkuSaleAttrValue">
+		UPDATE pms_sku_sale_attr_value
+		SET 
+			<if test="skuId!=null ">
+				sku_id = #{skuId}
+,			</if>
+			<if test="attrId!=null ">
+				attr_id = #{attrId}
+,			</if>
+			<if test="attrName!=null and attrName!=''">
+				attr_name = #{attrName}
+,			</if>
+			<if test="attrValue!=null and attrValue!=''">
+				attr_value = #{attrValue}
+,			</if>
+			<if test="attrSort!=null ">
+				attr_sort = #{attrSort}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_sku_sale_attr_value where id = #{id}
+	</delete>
+
+</mapper>

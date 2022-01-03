@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_spu_images spu图片 -->
+<mapper namespace="com.rawchen.mall.product.mapper.SpuImagesMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.SpuImages">
+		<id property="id" column="id" />
+		<result property="spuId" column="spu_id"/>
+		<result property="imgName" column="img_name"/>
+		<result property="imgUrl" column="img_url"/>
+		<result property="imgSort" column="img_sort"/>
+		<result property="defaultImg" column="default_img"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`spu_id`,
+		`img_name`,
+		`img_url`,
+		`img_sort`,
+		`default_img`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_images
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.SpuImages">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_images
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="spuId!=null ">
+				AND spu_id like concat('%',concat(#{spuId},'%'))
+			</if>
+			<if test="imgName!=null and imgName!=''">
+				AND img_name like concat('%',concat(#{imgName},'%'))
+			</if>
+			<if test="imgUrl!=null and imgUrl!=''">
+				AND img_url like concat('%',concat(#{imgUrl},'%'))
+			</if>
+			<if test="imgSort!=null ">
+				AND img_sort like concat('%',concat(#{imgSort},'%'))
+			</if>
+			<if test="defaultImg!=null ">
+				AND default_img like concat('%',concat(#{defaultImg},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.SpuImages">
+		INSERT INTO pms_spu_images
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{spuId}, #{imgName}, #{imgUrl}, #{imgSort}, #{defaultImg})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.SpuImages">
+		UPDATE pms_spu_images
+		SET 
+			<if test="spuId!=null ">
+				spu_id = #{spuId}
+,			</if>
+			<if test="imgName!=null and imgName!=''">
+				img_name = #{imgName}
+,			</if>
+			<if test="imgUrl!=null and imgUrl!=''">
+				img_url = #{imgUrl}
+,			</if>
+			<if test="imgSort!=null ">
+				img_sort = #{imgSort}
+,			</if>
+			<if test="defaultImg!=null ">
+				default_img = #{defaultImg}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_spu_images where id = #{id}
+	</delete>
+
+</mapper>

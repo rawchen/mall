@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_spu_comment 商品评价 -->
+<mapper namespace="com.rawchen.mall.product.mapper.SpuCommentMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.SpuComment">
+		<id property="id" column="id" />
+		<result property="skuId" column="sku_id"/>
+		<result property="spuId" column="spu_id"/>
+		<result property="spuName" column="spu_name"/>
+		<result property="memberNickName" column="member_nick_name"/>
+		<result property="star" column="star"/>
+		<result property="memberIp" column="member_ip"/>
+		<result property="showStatus" column="show_status"/>
+		<result property="spuAttributes" column="spu_attributes"/>
+		<result property="likesCount" column="likes_count"/>
+		<result property="replyCount" column="reply_count"/>
+		<result property="resources" column="resources"/>
+		<result property="content" column="content"/>
+		<result property="memberIcon" column="member_icon"/>
+		<result property="commentType" column="comment_type"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`sku_id`,
+		`spu_id`,
+		`spu_name`,
+		`member_nick_name`,
+		`star`,
+		`member_ip`,
+		`show_status`,
+		`spu_attributes`,
+		`likes_count`,
+		`reply_count`,
+		`resources`,
+		`content`,
+		`member_icon`,
+		`comment_type`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_comment
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.SpuComment">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_comment
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="skuId!=null ">
+				AND sku_id like concat('%',concat(#{skuId},'%'))
+			</if>
+			<if test="spuId!=null ">
+				AND spu_id like concat('%',concat(#{spuId},'%'))
+			</if>
+			<if test="spuName!=null and spuName!=''">
+				AND spu_name like concat('%',concat(#{spuName},'%'))
+			</if>
+			<if test="memberNickName!=null and memberNickName!=''">
+				AND member_nick_name like concat('%',concat(#{memberNickName},'%'))
+			</if>
+			<if test="star!=null ">
+				AND star like concat('%',concat(#{star},'%'))
+			</if>
+			<if test="memberIp!=null and memberIp!=''">
+				AND member_ip like concat('%',concat(#{memberIp},'%'))
+			</if>
+			<if test="showStatus!=null ">
+				AND show_status like concat('%',concat(#{showStatus},'%'))
+			</if>
+			<if test="spuAttributes!=null and spuAttributes!=''">
+				AND spu_attributes like concat('%',concat(#{spuAttributes},'%'))
+			</if>
+			<if test="likesCount!=null ">
+				AND likes_count like concat('%',concat(#{likesCount},'%'))
+			</if>
+			<if test="replyCount!=null ">
+				AND reply_count like concat('%',concat(#{replyCount},'%'))
+			</if>
+			<if test="resources!=null and resources!=''">
+				AND resources like concat('%',concat(#{resources},'%'))
+			</if>
+			<if test="content!=null and content!=''">
+				AND content like concat('%',concat(#{content},'%'))
+			</if>
+			<if test="memberIcon!=null and memberIcon!=''">
+				AND member_icon like concat('%',concat(#{memberIcon},'%'))
+			</if>
+			<if test="commentType!=null ">
+				AND comment_type like concat('%',concat(#{commentType},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.SpuComment">
+		INSERT INTO pms_spu_comment
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{skuId}, #{spuId}, #{spuName}, #{memberNickName}, #{star}, #{memberIp}, #{showStatus}, #{spuAttributes}, #{likesCount}, #{replyCount}, #{resources}, #{content}, #{memberIcon}, #{commentType}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.SpuComment">
+		UPDATE pms_spu_comment
+		SET 
+			<if test="skuId!=null ">
+				sku_id = #{skuId}
+,			</if>
+			<if test="spuId!=null ">
+				spu_id = #{spuId}
+,			</if>
+			<if test="spuName!=null and spuName!=''">
+				spu_name = #{spuName}
+,			</if>
+			<if test="memberNickName!=null and memberNickName!=''">
+				member_nick_name = #{memberNickName}
+,			</if>
+			<if test="star!=null ">
+				star = #{star}
+,			</if>
+			<if test="memberIp!=null and memberIp!=''">
+				member_ip = #{memberIp}
+,			</if>
+			<if test="showStatus!=null ">
+				show_status = #{showStatus}
+,			</if>
+			<if test="spuAttributes!=null and spuAttributes!=''">
+				spu_attributes = #{spuAttributes}
+,			</if>
+			<if test="likesCount!=null ">
+				likes_count = #{likesCount}
+,			</if>
+			<if test="replyCount!=null ">
+				reply_count = #{replyCount}
+,			</if>
+			<if test="resources!=null and resources!=''">
+				resources = #{resources}
+,			</if>
+			<if test="content!=null and content!=''">
+				content = #{content}
+,			</if>
+			<if test="memberIcon!=null and memberIcon!=''">
+				member_icon = #{memberIcon}
+,			</if>
+			<if test="commentType!=null ">
+				comment_type = #{commentType}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_spu_comment where id = #{id}
+	</delete>
+
+</mapper>

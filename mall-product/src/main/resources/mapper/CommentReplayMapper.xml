@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_comment_replay 商品评价回复关系 -->
+<mapper namespace="com.rawchen.mall.product.mapper.CommentReplayMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.CommentReplay">
+		<id property="id" column="id" />
+		<result property="commentId" column="comment_id"/>
+		<result property="replyId" column="reply_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`comment_id`,
+		`reply_id`,
+		`create_time`,
+		`update_time`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_comment_replay
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.CommentReplay">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_comment_replay
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="commentId!=null ">
+				AND comment_id like concat('%',concat(#{commentId},'%'))
+			</if>
+			<if test="replyId!=null ">
+				AND reply_id like concat('%',concat(#{replyId},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.CommentReplay">
+		INSERT INTO pms_comment_replay
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{commentId}, #{replyId}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.CommentReplay">
+		UPDATE pms_comment_replay
+		SET 
+			<if test="commentId!=null ">
+				comment_id = #{commentId}
+,			</if>
+			<if test="replyId!=null ">
+				reply_id = #{replyId}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_comment_replay where id = #{id}
+	</delete>
+
+</mapper>

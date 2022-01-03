@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- pms_spu_info_desc spu信息介绍 -->
+<mapper namespace="com.rawchen.mall.product.mapper.SpuInfoDescMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.mall.product.entity.SpuInfoDesc">
+		<result property="spuId" column="spu_id"/>
+		<result property="decript" column="decript"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`spu_id`,
+		`decript`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_info_desc
+		WHERE spu_id = #{spuId}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.mall.product.entity.SpuInfoDesc">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM pms_spu_info_desc
+		<where>
+			<if test="spuId!=null ">
+				AND spu_id like concat('%',concat(#{spuId},'%'))
+			</if>
+			<if test="decript!=null and decript!=''">
+				AND decript like concat('%',concat(#{decript},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.mall.product.entity.SpuInfoDesc">
+		INSERT INTO pms_spu_info_desc
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{spuId}, #{decript})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.mall.product.entity.SpuInfoDesc">
+		UPDATE pms_spu_info_desc
+		SET 
+			<if test="decript!=null and decript!=''">
+				decript = #{decript}
+			</if>
+		WHERE 
+			spu_id = #{spuId}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from pms_spu_info_desc where spu_id = #{spuId}
+	</delete>
+
+</mapper>
