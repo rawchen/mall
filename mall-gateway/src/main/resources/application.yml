@@ -12,3 +12,13 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/mall_sms?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: root
     password: root
+
+  cloud:
+    gateway:
+      routes:
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
