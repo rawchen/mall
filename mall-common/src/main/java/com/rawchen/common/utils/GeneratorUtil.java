@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.*;
 
 /**
- * 平台代码生成工具 - 单模块多表生成
+ * 平台代码生成工具 - 【微服务】单模块多表生成
  *
  * @author RawChen
  * @version v1.0
@@ -15,34 +15,29 @@ import java.util.*;
  */
 public class GeneratorUtil {
 
-
-	/************************** 配置常量参数 Start **************************/
-
 	// 【必须】作者名称
 	protected String author = "RawChen";
 
 	// 【必须】要生成代码的数据库表名, 如为空则生成该库内全部表对应的代码文件
-	protected String customTableNames[] = {
-
-	};
+	protected String customTableNames[] = {};
 
 	// 【必须】源文件夹存放路径，也是包路径
-	protected String package_url = "com/rawchen/mall/coupon";
+	protected String package_url = "com/rawchen/mall/product";
 
 	// 【必须】模块名
-	protected String moduleName = "mall-coupon";
+	protected String moduleName = "mall-product";
 
 	// 【必须】数据库连接参数
-	protected String url = "jdbc:mysql://localhost:3306/mall_sms" + "?characterEncoding=utf8";
+	protected String url = "jdbc:mysql://localhost:3306/mall_pms" + "?characterEncoding=utf8";
 	protected String driverName = "com.mysql.cj.jdbc.Driver";
 	protected String user = "root";
 	protected String password = "root";
 
 	// 【可选】生成的带代码文件名称忽略表名前缀, 不忽略则为空
-	protected String ignoreTablePrefix = "sms_";
+	protected String ignoreTablePrefix = "pms_";
 
-	// 【可选】版本接口路由
-	protected String versionInterfaceRouting = "/api/v1";
+	// 【可选】版本接口路由，例如：/api/v1
+	protected String versionInterfaceRouting = "";
 
 	// 【保持】包路径
 	private final String bean_package = package_url.replaceAll("/", ".") + ".entity";
@@ -71,8 +66,6 @@ public class GeneratorUtil {
 	private final String type_bit = "bit";
 	private final String type_decimal = "decimal";
 	private final String type_blob = "blob";
-
-	/************************** 配置常量参数 End **************************/
 
 
 	public static void main(String[] args) {
