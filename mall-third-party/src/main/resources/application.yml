@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: mall-third-party
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8082
+  zipkin:
+    base-url: 127.0.0.1:9411/
+    # 关闭我们自动的服务发现功能
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
+server:
+  port: 30000

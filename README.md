@@ -40,24 +40,25 @@ Kibana：7.4.2
 
 2. 导入sql数据：mall_admin.sql、mall_oms.sql、mall_pms.sql、mall_sms.sql、mall_ums.sql、mall_wms.sql
 
-3. 安装虚拟机，配置私有网络，里面安装nginx，Elasticsearch，kibana。（redis和mysql嫌麻烦可安装本地），安装步骤往下拉可看到。
+3. 安装虚拟机，配置私有网络，里面安装nginx，Elasticsearch，kibana。（redis/mysql/RabbitMQ嫌麻烦可安装本地），安装步骤往下拉可看到。
 
-4. 配置本地hosts，可直接使用mall.com根域名。修改nginx配置。
+4. 配置本地hosts，可直接使用mall.com根域名。修改nginx配置（参考页面下）。
 
 5. 配置Nacos的配置中心（也是参考最后面）
 
 6. 由于项目static里面存在大量静态图片资源因此github不保存这些，需自行下载放入。[https://cdn.rawchen.com/mall/static.zip](https://cdn.rawchen.com/mall/static.zip)
 
 7. 最后检查所有的 *.yml，确保符合自己环境（如果端口冲突需要修改，如果中间件密码不对要改，如果各种xxx的秘钥需要自己去弄）
-```
-
 
 
 ## 服务
 
 ![blog-01.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
 
-
+http://localhost:8848/nacos				Nacos后台
+http://localhost:15672					RabbitMQ后台
+http://localhost:8082					Sentinel后台
+http://192.168.56.10:5601				Kibana后台
 
 ## 架构图
 
@@ -67,6 +68,194 @@ Kibana：7.4.2
 ## 功能实现部分截图
 
 ![blog-01.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
+
+## 虚拟机配置
+```bash
+安装docker
+https://docs.docker.com/engine/install/centos/
+镜像加速器
+https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+
+yum install wget
+yum install unzip
+
+开启root
+sudo vi /etc/ssh/sshd_config
+PermitRootLogin yes
+service sshd restart
+
+使用nano编辑器
+yum -y install nano
+
+==========================
+安装ElasticSearch7.4.2
+docker pull elasticsearch:7.4.2
+docker pull kibana:7.4.2
+mkdir -p /mydata/elasticsearch/config
+mkdir -p /mydata/elasticsearch/data
+echo "http.host: 0.0.0.0">>/mydata/elasticsearch/config/elasticsearch.yml
+chmod -R 777 /mydata/elasticsearch/
+
+docker run --name elasticsearch --restart=always -p 9200:9200 -p 9300:9300 \
+-e "discovery.type=single-node" \
+-e ES_JAVA_OPTS="-Xms128m -Xmx256m" \
+-v /mydata/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \
+-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+-d elasticsearch:7.4.2
+
+docker run --name kibana --restart=always -e ELASTICSEARCH_HOSTS=http://192.168.56.10:9200 -p 5601:5601 \
+-d kibana:7.4.2
+
+docker exec -it es容器id /bin/bash
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.4.2/elasticsearch-analysis-ik-7.4.2.zip
+unzip elasticsearch-analysis-ik-7.4.2.zip -d ik
+chmod -R 777 ik/
+最后删掉zip包
+
+==========================================
+安装nginx1.10
+docker run -p 80:80 --name nginx -d nginx:1.10
+
+docker container cp nginx:/etc/nginx .
+
+docker run -p 80:80 --restart=always --name nginx \
+-v /mydata/nginx/html:/usr/share/nginx/html \
+-v /mydata/nginx/logs:/var/log/nginx \
+-v /mydata/nginx/conf:/etc/nginx \
+-d nginx:1.10
+
+==============================
+docker 命令
+docker pull elasticsearch:7.4.2		拉取镜像
+docker images					查看已经拉取的镜像
+docker run -d -p 81:80 nginx		启动镜像（新建一个容器）
+docker ps -a						查看正在运行中的容器,包括未运行的
+docker start 容器名称/容器ID		启动该容器
+docker stop nameOrContainerId		根据容器名或容器id停止
+docker rm容器ID					删除某一容器 //停止容器--》删除容器--》删除镜像
+docker rmi 镜像ID					删除某一个镜像
+systemctl restart docke				重启docker
+===============================
+```
+
+## Nginx配置
+nginx.conf
+```nginx
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+    upstream mall{
+        server 192.168.56.1:88;
+    }
+
+    include /etc/nginx/conf.d/*.conf;
+}
+
+```
+
+conf.d/mall.conf
+```nginx
+server {
+    listen       80;
+    server_name  *.mall.com mall.com;
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_pass http://mall;
+	    #proxy_pass http://192.168.56.1:10000;
+
+        #root   /usr/share/nginx/html;
+        #index  index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+```
+
+## Nacos配置中心
+oss-sms.yml
+```yaml
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI4Fdzxxxxxxxxxxxxxxx
+      secret-key: 4WedSXJ6630pxUxxxxxxxxxxxxxxxx
+      oss:
+        endpoint: oss-cn-hangzhou.aliyuncs.com
+        bucket: rawchen
+      sms:
+        host: https://dfsns.market.alicloudapi.com
+        path: /data/send_sms
+        template-id: TPL_09xxx
+        app-code: 46xxxxxxxxxxxxxxxxxxxxx
+```
+
+datasource.yml
+```yaml
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/mall_sms?serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+mybatis.yml
+```yaml
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+```
+
+other.yml
+```yaml
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  application:
+    name: mall-coupon
+  zipkin:
+    base-url: 127.0.0.1:9411/
+    # 关闭我们自动的服务发现功能
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
+server:
+  port: 7000
+```
+
 
 
 ## Stargazers
