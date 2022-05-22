@@ -1,0 +1,5 @@
+[0220/211611.916:ERROR:registration_protocol_win.cc(102)] CreateFile: 系统找不到指定的文件。 (0x2)
+[0220/211612.562:ERROR:crashpad_client_win.cc(808)] not connected
+[0220/211612.654:ERROR:registration_protocol_win.cc(102)] CreateFile: 系统找不到指定的文件。 (0x2)
+[0220/211613.416:ERROR:crashpad_client_win.cc(808)] not connected
+[0220/213022.583:ERROR:registration_protocol_win.cc(102)] CreateFile: 系统找不到指定的文件。 (0x2)

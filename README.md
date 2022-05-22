@@ -36,9 +36,9 @@ Kibana：7.4.2
 
 ## 项目使用说明
 
-1. 导入结构和数据：mall_admin.sql、mall_oms.sql、mall_pms.sql、mall_sms.sql、mall_ums.sql、mall_wms.sql
+1. 解压下载项目zip，重命名mall-master文件夹为mall，IDEA打开该项目，前端部署renren-fast-vue
 
-2. 解压下载项目zip，重命名mall-master文件夹为mall，IDEA打开该项目，前端部署renren-fast-vue
+2. 导入sql数据：mall_admin.sql、mall_oms.sql、mall_pms.sql、mall_sms.sql、mall_ums.sql、mall_wms.sql
 
 3. 安装虚拟机，配置私有网络，里面安装nginx，Elasticsearch，kibana。（redis和mysql嫌麻烦可安装本地），安装步骤往下拉可看到。
 
