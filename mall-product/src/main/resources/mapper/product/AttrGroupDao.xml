@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rawchen.mall.product.dao.AttrGroupDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.rawchen.mall.product.entity.AttrGroupEntity" id="attrGroupMap">
+        <result property="attrGroupId" column="attr_group_id"/>
+        <result property="attrGroupName" column="attr_group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="descript" column="descript"/>
+        <result property="icon" column="icon"/>
+        <result property="catelogId" column="catelog_id"/>
+    </resultMap>
+
+    <!-- 封装自定义结果集 -->
+    <resultMap id="SpuItemAttrGroupVo" type="com.rawchen.mall.product.vo.SpuItemAttrGroup">
+        <result column="attr_group_name" property="groupName" javaType="string"></result>
+        <collection property="attrs" ofType="com.rawchen.mall.product.vo.SpuBaseAttrVo">
+            <result column="attr_name" property="attrName" javaType="string"></result>
+            <result column="attr_value" property="attrValue" javaType="string"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="SpuItemAttrGroupVo">
+
+        SELECT pav.`spu_id`, ag.`attr_group_name`, ag.`attr_group_id`, aar.`attr_id`, attr.`attr_name`,pav.`attr_value`
+        FROM `pms_attr_group` ag
+        LEFT JOIN `pms_attr_attrgroup_relation` aar ON aar.`attr_group_id` = ag.`attr_group_id`
+        LEFT JOIN `pms_attr` attr ON attr.`attr_id` = aar.`attr_id`
+        LEFT JOIN `pms_product_attr_value` pav ON pav.`attr_id` = attr.`attr_id`
+        WHERE ag.catelog_id = #{catalogId} AND pav.`spu_id` = #{spuId}
+    </select>
+
+</mapper>

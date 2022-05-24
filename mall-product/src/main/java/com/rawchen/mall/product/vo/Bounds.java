@@ -1,0 +1,18 @@
+package com.rawchen.mall.product.vo;
+
+import lombok.Data;
+
+import java.math.BigDecimal;
+/**
+ * <p>Title: AttrVo</p>
+ * Description：成直积分、购物积分
+ *
+ * date：2022/1/2 19:23
+ */
+@Data
+public class Bounds {
+
+    private BigDecimal buyBounds;
+    private BigDecimal growBounds;
+
+}
