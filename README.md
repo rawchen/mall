@@ -36,7 +36,7 @@ Kibana：7.4.2
 
 ## 项目使用说明
 
-1. 解压下载项目zip，重命名mall-master文件夹为mall，IDEA打开该项目，前端部署renren-fast-vue
+1. 下载解压项目zip，重命名mall-main文件夹为mall，IDEA打开该项目，前端部署renren-fast-vue
 
 2. 导入sql数据：mall_admin.sql、mall_oms.sql、mall_pms.sql、mall_sms.sql、mall_ums.sql、mall_wms.sql
 
