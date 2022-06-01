@@ -33,6 +33,9 @@ Elasticsearch：7.4.2
 Docker：20.10.12
 Kibana：7.4.2
 
+## 技术要点
+
+Nginx代理、Sentinel流控、支付宝沙箱、Elasticsearch检索引擎、Sleuth链路追踪、Redis分布式锁、Seata分布式事务、手机验证码、邮件订单生成提醒、RabbitMQ订单仓储消息队列、阿里OSS存储、Excel导出、Quick BI看板
 
 ## 项目使用说明
 
@@ -49,11 +52,6 @@ Kibana：7.4.2
 6. 由于项目static里面存在大量静态图片资源因此github不保存这些，需自行下载放入。[https://cdn.rawchen.com/mall/static.zip](https://cdn.rawchen.com/mall/static.zip)
 
 7. 最后检查所有的 *.yml，确保符合自己环境（如果端口冲突需要修改，如果中间件密码不对要改，如果各种xxx的秘钥需要自己去弄）
-
-## 技术要点
-
-Nginx代理、Sentinel流控、支付宝沙箱、Elasticsearch检索引擎、Sleuth链路追踪、Redis分布式锁、Seata分布式事务、手机验证码、邮件订单生成提醒、RabbitMQ订单仓储消息队列、阿里OSS存储、Excel导出、Quick BI看板
-
 
 ## 服务
 
