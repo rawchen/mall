@@ -50,10 +50,14 @@ Kibana：7.4.2
 
 7. 最后检查所有的 *.yml，确保符合自己环境（如果端口冲突需要修改，如果中间件密码不对要改，如果各种xxx的秘钥需要自己去弄）
 
+## 技术要点
+
+Nginx代理、Sentinel流控、支付宝沙箱、Elasticsearch检索引擎、Sleuth链路追踪、Redis分布式锁、Seata分布式事务、手机验证码、邮件订单生成提醒、RabbitMQ订单仓储消息队列、阿里OSS存储、Excel导出、Quick BI看板
+
 
 ## 服务
 
-![blog-01.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/05.png)
 
 http://localhost:8848/nacos				Nacos后台
 http://localhost:15672					RabbitMQ后台
@@ -62,12 +66,21 @@ http://192.168.56.10:5601				Kibana后台
 
 ## 架构图
 
-![blog-01.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/06.png)
 
+## 重要类类图
+
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/07.png)
 
 ## 功能实现部分截图
 
-![blog-01.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/01.png)
+
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/02.png)
+
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/03.png)
+
+![](https://fastly.jsdelivr.net/gh/rawchen/JsDelivr/static/mall/04.png)
 
 ## 虚拟机配置
 ```bash
