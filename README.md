@@ -43,7 +43,7 @@ Nginx代理、Sentinel流控、支付宝沙箱、Elasticsearch检索引擎、Sle
 
 2. 导入sql数据：mall_admin.sql、mall_oms.sql、mall_pms.sql、mall_sms.sql、mall_ums.sql、mall_wms.sql
 
-3. 安装虚拟机，配置私有网络，里面安装nginx，Elasticsearch，kibana。（redis/mysql/RabbitMQ嫌麻烦可安装本地），安装步骤往下拉可看到。
+3. 安装虚拟机，配置私有网络，里面安装docker, nginx, Elasticsearch, kibana。（redis/mysql/RabbitMQ嫌麻烦可安装本地），安装步骤往下拉可看到。
 
 4. 配置本地hosts，可直接使用mall.com根域名。修改nginx配置（参考页面下）。
 
